@@ -2,8 +2,14 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Heart, Menu, X, User } from "lucide-react";
+import { Heart, Menu, X, User, ChevronDown } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,12 +73,62 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-4">
-                <Button asChild variant="outline" size="sm">
-                  <Link to="/login">Login</Link>
-                </Button>
-                <Button asChild size="sm" className="bg-red-600 hover:bg-red-700">
-                  <Link to="/register-donor">Get Started</Link>
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="sm" className="flex items-center space-x-1">
+                      <span>Login</span>
+                      <ChevronDown className="h-3 w-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48 bg-white">
+                    <DropdownMenuItem asChild>
+                      <Link to="/login-donor" className="w-full cursor-pointer">
+                        Donor Login
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/login-bloodbank" className="w-full cursor-pointer">
+                        Blood Bank Login
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/login-hospital" className="w-full cursor-pointer">
+                        Hospital Login
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/login" className="w-full cursor-pointer">
+                        Admin Login
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+                
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button size="sm" className="bg-red-600 hover:bg-red-700 flex items-center space-x-1">
+                      <span>Register</span>
+                      <ChevronDown className="h-3 w-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48 bg-white">
+                    <DropdownMenuItem asChild>
+                      <Link to="/register-donor" className="w-full cursor-pointer">
+                        Register as Donor
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/register-bloodbank" className="w-full cursor-pointer">
+                        Register Blood Bank
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to="/register-hospital" className="w-full cursor-pointer">
+                        Register Hospital
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             )}
           </div>
@@ -130,12 +186,30 @@ const Navbar = () => {
                   </div>
                 ) : (
                   <div className="flex flex-col space-y-2">
-                    <Button asChild variant="outline" size="sm" className="w-fit">
-                      <Link to="/login" onClick={() => setIsOpen(false)}>Login</Link>
-                    </Button>
-                    <Button asChild size="sm" className="bg-red-600 hover:bg-red-700 w-fit">
-                      <Link to="/register-donor" onClick={() => setIsOpen(false)}>Get Started</Link>
-                    </Button>
+                    <div className="text-sm font-medium text-gray-700 mb-2">Login Options:</div>
+                    <Link to="/login-donor" className="text-sm text-gray-600 pl-4" onClick={() => setIsOpen(false)}>
+                      Donor Login
+                    </Link>
+                    <Link to="/login-bloodbank" className="text-sm text-gray-600 pl-4" onClick={() => setIsOpen(false)}>
+                      Blood Bank Login
+                    </Link>
+                    <Link to="/login-hospital" className="text-sm text-gray-600 pl-4" onClick={() => setIsOpen(false)}>
+                      Hospital Login
+                    </Link>
+                    <Link to="/login" className="text-sm text-gray-600 pl-4" onClick={() => setIsOpen(false)}>
+                      Admin Login
+                    </Link>
+                    
+                    <div className="text-sm font-medium text-gray-700 mt-4 mb-2">Register Options:</div>
+                    <Link to="/register-donor" className="text-sm text-gray-600 pl-4" onClick={() => setIsOpen(false)}>
+                      Register as Donor
+                    </Link>
+                    <Link to="/register-bloodbank" className="text-sm text-gray-600 pl-4" onClick={() => setIsOpen(false)}>
+                      Register Blood Bank
+                    </Link>
+                    <Link to="/register-hospital" className="text-sm text-gray-600 pl-4" onClick={() => setIsOpen(false)}>
+                      Register Hospital
+                    </Link>
                   </div>
                 )}
               </div>
